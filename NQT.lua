@@ -1,77 +1,148 @@
--- Instances:
+if game.PlaceId == 155615604 then
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Prison Life  | NQT V1.1 | Made By 000NQ#9226", "Sentinel")
+ 
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+ 
+    MainSection:NewDropdown("Give Gun", "Gives the localplayer a gun", {"M9", "Remington 870", "AK-47"}, function(v)
+        local A_1 = game:GetService("Workspace")["Prison_ITEMS"].giver[v].ITEMPICKUP
+        local Event = game:GetService("Workspace").Remote.ItemHandler
+        Event:InvokeServer(A_1)
+    end)
+ 
+    MainSection:NewDropdown("Gun Mod", "Makes the gun op", {"M9", "Remington 870", "AK-47"}, function(v)
+        local module = nil
+        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+            module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module["MaxAmmo"] = math.huge
+            module["CurrentAmmo"] = math.huge
+            module["StoredAmmo"] = math.huge
+            module["FireRate"] = 0.000001
+            module["Spread"] = 0
+            module["Range"] = math.huge
+            module["Bullets"] = 10
+            module["ReloadTime"] = 0.000001
+            module["AutoFire"] = true
+        end
+    end)
+ 
+    -- PLAYER
+    local Player = Window:NewTab("Player")
+    local PlayerSection = Player:NewSection("Player")
+ 
+    PlayerSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end)
+ 
+    PlayerSection:NewSlider("Jumppower", "Changes the jumppower", 250, 50, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end)
+elseif game.PlaceId == 3956818381 then
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Ninja Legends  | NQT V1.1 | Made By 000NQ#9226", "Sentinel")
+ 
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+ 
+    MainSection:NewToggle("Auto Swing", "Make your player autoswing", function(v)
+        getgenv().autoswing = v
+        while true do
+            if not getgenv().autoswing then return end
+            for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v:FindFirstChild("ninjitsuGain") then
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    break
+                end
+            end
+            local A_1 = "swingKatana"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1)
+            wait(0.1)
+        end
+    end)
+ 
+    MainSection:NewToggle("Auto Sell", "Makes your player autosell", function(v)
+        getgenv().autosell = v
+        while true do
+            if getgenv().autoswing == false then return end
+            game:GetService("Workspace").sellAreaCircles["sellAreaCircle16"].circleInner.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            wait(0.1)
+            game:GetService("Workspace").sellAreaCircles["sellAreaCircle16"].circleInner.CFrame = CFrame.new(0,0,0)
+            wait(0.1)
+        end
+    end)
+ 
+    MainSection:NewButton("Unlock all islands", "Unlocks all islands", function()
+        local oldcframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        for _,v in pairs(game:GetService("Workspace").islandUnlockParts:GetChildren()) do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+            wait(0.1)
+        end
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcframe
+    end)
+    
+    MainSection:NewToggle("Auto buy all swords", "Auto buys all swords", function(v)
+        getgenv().buyswords = v
+        while true do
+            if not getgenv().buyswords then return end
+            local A_1 = "buyAllSwords"
+            local A_2 = "Inner Peace Island"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1, A_2)
+            wait(0.5)
+        end
+    end)
+ 
+    MainSection:NewToggle("Auto buy all belts", "Auto buys all belts", function(v)
+        getgenv().buybelts = v
+        while true do
+            if not getgenv().buybelts then return end
+            local A_1 = "buyAllBelts"
+            local A_2 = "Inner Peace Island"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1, A_2)
+            wait(0.5)
+        end
+    end)
+elseif game.PlaceId == 4924922222 then
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("Brookhaven 🏡RP  | NQT V1.1 | Made By 000NQ#9226", "Sentinel")
+ 
+    -- MAIN
+    local Main = Window:NewTab("Main")
+    local MainSection = Main:NewSection("Main")
+    local PlayerSection = Player:NewSection("Player")
+ 
+    PlayerSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end)
+ 
+    PlayerSection:NewSlider("Jumppower", "Changes the jumppower", 250, 50, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end)
 
-local main = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-local UICorner = Instance.new("UICorner")
-local TextButton = Instance.new("TextButton")
-local UICorner_2 = Instance.new("UICorner")
-local TextButton_2 = Instance.new("TextButton")
-local UICorner_3 = Instance.new("UICorner")
-local TextButton_3 = Instance.new("TextButton")
-local UICorner_4 = Instance.new("UICorner")
-local UICorner_5 = Instance.new("UICorner")
-
---Properties:
-
-main.Name = "main"
-main.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
-main.BorderSizePixel = 0
-main.Position = UDim2.new(0.233406812, 0, 0.330410123, 0)
-main.Size = UDim2.new(0, 588, 0, 192)
-main.Active = true
-main.Draggable = true
-
-TextLabel.Name = "TextLabel"
-TextLabel.Parent = main
-TextLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-TextLabel.BorderSizePixel = 0
-TextLabel.Size = UDim2.new(0, 588, 0, 50)
-TextLabel.Font = Enum.Font.PatrickHand
-TextLabel.Text = "NQT  V1  | Made By 000NQ"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextSize = 38.000
-
-UICorner.Parent = TextLabel
-
-TextButton.Name = "TextButton"
-TextButton.Parent = main
-TextButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-TextButton.Position = UDim2.new(0.783792615, 0, 0.345217109, 0)
-TextButton.Size = UDim2.new(0, 99, 0, 61)
-TextButton.Font = Enum.Font.PermanentMarker
-TextButton.Text = "Kick"
-TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextButton.TextSize = 55.000
-TextButton.MouseButton1Down:connect(function()
-	print("kicked")
-end)
-
-UICorner_2.Parent = TextButton
-
-TextButton_2.Name = "TextButton_2"
-TextButton_2.Parent = main
-TextButton_2.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-TextButton_2.Position = UDim2.new(0.0473980643, 0, 0.345801443, 0)
-TextButton_2.Size = UDim2.new(0, 99, 0, 61)
-TextButton_2.Font = Enum.Font.PermanentMarker
-TextButton_2.Text = "Fly"
-TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextButton_2.TextSize = 55.000
-
-UICorner_3.Parent = TextButton_2
-
-TextButton_3.Name = "TextButton_3"
-TextButton_3.Parent = main
-TextButton_3.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-TextButton_3.Position = UDim2.new(0.414744973, 0, 0.340872586, 0)
-TextButton_3.Size = UDim2.new(0, 99, 0, 61)
-TextButton_3.Font = Enum.Font.PermanentMarker
-TextButton_3.Text = "AutoRob JailBreack"
-TextButton_3.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextButton_3.TextSize = 55.000
-TextButton_3.MouseButton1Down:connect(function()
-     loadstring(game:GetObjects("rbxassetid://1461971147")[1].Source) ()
-end)
-UICorner_4.Parent = TextButton_3
-
-UICorner_5.Parent = main
+    MainSection:NewToggle("Auto Swing", "Make your player autoswing", function(v)
+        getgenv().autoswing = v
+        while true do
+            if not getgenv().autoswing then return end
+            for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if v:FindFirstChild("ninjitsuGain") then
+                    game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    break
+                end
+            end
+            local A_1 = "swingKatana"
+            local Event = game:GetService("Players").LocalPlayer.ninjaEvent
+            Event:FireServer(A_1)
+            wait(0.1)
+        end
+    end)
+end
