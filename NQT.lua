@@ -119,13 +119,12 @@ elseif game.PlaceId == 4924922222 then
     -- MAIN
     local Main = Window:NewTab("Main")
     local MainSection = Main:NewSection("Main")
-    local PlayerSection = Player:NewSection("Player")
  
-    PlayerSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
+    MainSection:NewSlider("Walkspeed", "Changes the walkspeed", 250, 16, function(v)
         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
     end)
  
-    PlayerSection:NewSlider("Jumppower", "Changes the jumppower", 250, 50, function(v)
+    MainSection:NewSlider("Jumppower", "Changes the jumppower", 250, 50, function(v)
         game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
     end)
 
